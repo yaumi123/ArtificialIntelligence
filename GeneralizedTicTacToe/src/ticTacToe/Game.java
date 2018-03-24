@@ -291,9 +291,9 @@ public class Game {
 		}
 	}
 
-	public int getPlayer() {
+	public char getPlayer() {
 		if(current_player=='X')
-			return 0;
-		else return 1;
+			return 'X';
+		else return 'O';
 	}
 }

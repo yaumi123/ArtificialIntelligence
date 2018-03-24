@@ -19,7 +19,7 @@ public class AI {
 	
 	static void alphabeta(Game game, int depth) {
 		minmax(game, depth);
-		System.out.println("AI chooses"+computermove);
+		System.out.println(game.getPlayer() + " chooses" + computermove);
 		game.move(computermove.x, computermove.y);
 	
 	}
@@ -44,7 +44,8 @@ public class AI {
 				int currentScore = minmax(game, depth-1);
 				max = Math.max(currentScore, max);
 				if(depth==0)
-					System.out.println("AI chooses "+ point +", score is "+currentScore);
+					//computermove = point;
+					//System.out.println("For " + game.getPlayer() + " position: " + point +", score is "+currentScore);
 				if(currentScore==10&&depth==0) {
 					game.board[point.x][point.y]='-';
 					computermove = point;
