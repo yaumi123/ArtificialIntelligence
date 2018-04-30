@@ -1,0 +1,23 @@
+## Each line in this file is a SEPARATE sequence that can be given to your HMM.
+
+# Each sequence shows one sequence of dice outputs.
+
+# You have to determine the most likely sequence of die that was used.
+
+# Sequence 1
+[1, 2, 3, 2, 1, 3, 2, 1, 3, 2, 3]
+
+# Sequence 2
+[1, 2, 1, 1, 1, 2, 3, 3, 1, 2, 3, 3, 1, 3, 3]
+
+# Sequence 3
+[3, 2, 3, 1, 1, 3]
+
+# Sequence 4
+[3, 2, 3, 1, 1, 2, 3]
+
+# Sequence 5
+[1, 2, 1, 1, 2, 1]
+
+# Sequence 6
+[3, 3, 3, 1, 2, 3, 2, 2, 2, 2, 1]
