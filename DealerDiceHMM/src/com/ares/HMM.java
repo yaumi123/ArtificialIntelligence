@@ -1,29 +1,29 @@
 package com.ares;
 
 public class HMM {
-	double vp = 1;
+	double probability = 1;
 	public int[] viterbi(int[] obs, int[] states, double[] start_p, double[][] trans_p, double[][] emit_p)
 	{
-		double[][] V = new double[obs.length][states.length];
+		double[][] value = new double[obs.length][states.length];
 		int[][] path = new int[states.length][obs.length];
-		vp = 1;
-		for (int y : states)
+		probability = 1;
+		for (int n : states)
 
 		{
 
-			V[0][y] = start_p[y] * emit_p[y][obs[0]];
+			value[0][n] = start_p[n] * emit_p[n][obs[0]];
 
-			path[y][0] = y;
+			path[n][0] = n;
 
 		}
 
-		for (int t = 1; t < obs.length; ++t)
+		for (int m = 1; m < obs.length; ++m)
 
 		{
 
 			int[][] newpath = new int[states.length][obs.length];
 
-			for (int y : states)
+			for (int i : states)
 
 			{
 
@@ -31,11 +31,11 @@ public class HMM {
 
 				int state;
 
-				for (int y0 : states)
+				for (int n0 : states)
 
 				{
 
-					double nprob = V[t - 1][y0] * trans_p[y0][y] * emit_p[y][obs[t]];
+					double nprob = value[m - 1][n0] * trans_p[n0][i] * emit_p[i][obs[m]];
 
 					if (nprob > prob)
 
@@ -43,20 +43,20 @@ public class HMM {
 
 						prob = nprob;
 
-						state = y0;
+						state = n0;
 
 
-						V[t][y] = prob;
-						vp *= V[t][y];
+						value[m][i] = prob;
+						
 
-						System.arraycopy(path[state], 0, newpath[y], 0, t);
+						System.arraycopy(path[state], 0, newpath[i], 0, m);
 
-						newpath[y][t] = y;
+						newpath[i][m] = i;
 
 					}
 
 				}
-
+				probability *= value[m][i];
 			}
 
 			path = newpath;
@@ -67,17 +67,17 @@ public class HMM {
 
 		int state = 0;
 
-		for (int y : states)
+		for (int i : states)
 
 		{
 
-			if (V[obs.length - 1][y] > prob)
+			if (value[obs.length - 1][i] > prob)
 
 			{
 
-				prob = V[obs.length - 1][y];
+				prob = value[obs.length - 1][i];
 
-				state = y;
+				state = i;
 
 			}
 

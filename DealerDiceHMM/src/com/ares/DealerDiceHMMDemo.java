@@ -72,7 +72,7 @@ public class DealerDiceHMMDemo {
 	            System.out.print(Die.values()[r] + " ");
 
 	        }
-	        System.out.print("------Prob : " + h.vp);
+	        System.out.print("------Prob : " + h.probability);
 	        System.out.println();
 	        observations = null;
 		}
