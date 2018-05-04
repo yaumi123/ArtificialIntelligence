@@ -9,8 +9,10 @@ He chooses (1) with probability 0.5 and each of the others with probability 0.25
 At the beginning the dealer chooses one of the two dice with equal probability.
 
 a)	Give an HMM for this situation. Specify the alphabet, the states, 
-	the transition probabilities and the emission probabilities. 
+	the transition probabilities and the emit probabilities. 
 b)	Suppose that you observe the following sequence of die rolls: x.  
 	(x is given to you in the input file.) 
 c)	Find a sequence of states which best explains the sequence of rolls. 
 	What is the probability of this sequence? 
+
+	
