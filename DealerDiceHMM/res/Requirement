@@ -5,7 +5,7 @@ the dealer must decide whether to:
 (1) keep the same die; 
 (2) switch to a different die randomly; 
 (3) end the game. 
-He chooses (1) with probability ½ and each of the others with probability ¼. 
+He chooses (1) with probability 0.5 and each of the others with probability 0.25. 
 At the beginning the dealer chooses one of the two dice with equal probability.
 
 a)	Give an HMM for this situation. Specify the alphabet, the states, 

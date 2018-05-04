@@ -4,45 +4,78 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
-
+ 
+ 
 public class DealerDiceHMMDemo {
 	
 	static List<String> diceSequences = new ArrayList<>();
-	
-	public static List<String> readSequence(String path) {
-		try { 
-            BufferedReader reader = new BufferedReader(new FileReader(path));
-            String line = null; 
-            List<String> dstring = new ArrayList<>();
 
-            while((line=reader.readLine())!=null){ 
-            	if(!line.equals("")) {
-            		if(line.charAt(0)=='[')
-            			dstring.add(line);
-            	}
-            }
-            List<String> dse = new ArrayList<>();
-    		String ds = "";
-    		int seqNum=0;
-    		for(String content : dstring) {
-    			System.out.println("#" + (seqNum+1) + " : " + content);
-    			for(int i=0;i<content.length();i++) {
-    				if(content.charAt(i)!='['&&content.charAt(i)!=','&&content.charAt(i)!=' '&&content.charAt(i)!=']')
-    					ds = ds + String.valueOf(content.charAt(i));
-    			}
-    			dse.add(ds);
-    			ds = "";
-    			seqNum++;
-    		}
-            return dse;
-        } catch (Exception e) { 
-            e.printStackTrace(); 
-        }
-		return null;
-		
+	
+	enum Die
+	{
+		D1,
+		D2,
+		D3,
 	}
+	
+	enum Dice{
+		One,
+		Two,
+		Three,
+	}
+	static int[] states = new int[]{Die.D1.ordinal(), Die.D2.ordinal(),Die.D3.ordinal()};
+
+    static int[] observations;
+
+    static double[] start_probability = new double[]{0.33, 0.33, 0.33};
+
+    static double[][] transititon_probability = new double[][]{
+
+            {0.5, 0.25, 0.25},
+
+            {0.25, 0.5, 0.25},
+            
+            {0.25, 0.25, 0.5},
+
+    };
+
+    static double[][] emission_probability = new double[][]{
+
+            {0.6, 0.2, 0.2},
+
+            {0.2, 0.6, 0.2},
+            {0.2, 0.2, 0.6},
+
+    };
+
 	public static void main(String[] args) {
-		diceSequences = readSequence("res/diceSequences.txt");
+		diceSequences = ReadFile.readSequence("res/diceSequences.txt");
+		//System.out.println(diceSequences);
+		HMM h = new HMM();
+		for(int i = 0; i<diceSequences.size();i++) {
+			String temS = diceSequences.get(i);
+			observations = new int[temS.length()];
+			for(int j=0;j<temS.length();j++) {
+				if(temS.charAt(j)=='1')
+					observations[j]=Dice.One.ordinal();
+				else if(temS.charAt(j)=='2')
+					observations[j]=Dice.Two.ordinal();
+				else
+					observations[j]=Dice.Three.ordinal();
+			}
+			int[] result = h.viterbi(observations, states, start_probability, transititon_probability, emission_probability);
+			System.out.print("#"+i+" possible sequence : ");
+	        for (int r : result)
+
+	        {
+
+	            System.out.print(Die.values()[r] + " ");
+
+	        }
+	        System.out.print("------Prob : " + h.vp);
+	        System.out.println();
+	        observations = null;
+		}
 		
 	}
 }
